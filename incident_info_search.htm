@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>不審者情報検索</title>
+<style>
+table#tslist{background-color:#AAA;}
+table#tslist td{background-color:#FFF;}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$("#key").keyup(function(){
+		var url = "http://www.shonan.bunkyo.ac.jp/~b6p31099/SD7/incident_info_json.php?q=" + $("#key").val();
+		$.ajax({url:url, dataType:"json", cache:false, success:function(j){
+			$("#main").html("");
+			$("<table>").attr("id", "tslist").appendTo("#main");
+			$.each(j["temple_list"], function(i){
+				$("<tr><td>" + this["id"] + "</td><td>" + this["cat_id"] + "</td><td>" + this["name"] + "</td><td>" + this["addr"] + "</td><td>" + this["lat"] + "/" + this["lng"] + "</td></tr>").appendTo("#tslist");
+			});
+		}});
+	});
+});
+</script>
+</head>
+
+<body>
+検索ワード指定：<input type="text" id="key">
+<div id="main"></div>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+﻿CREATE TABLE user_cat ( id INT PRIMARY KEY,
+  p_id INT REFERENCES user_cat(id),
+  cat_name VARCHAR NOT NULL);
+
+INSERT INTO user_cat (id, cat_name) VALUES(1, '自治体担当');
+INSERT INTO user_cat (id, cat_name) VALUES(2, '保護者');
+INSERT INTO user_cat (id, cat_name) VALUES(3, '見守り担当者');
+INSERT INTO user_cat (id, cat_name) VALUES(4, '学校関係者');
+INSERT INTO user_cat (id, cat_name) VALUES(10, 'Twitter関係');
+INSERT INTO user_cat (id, p_id, cat_name) VALUES (11, 10, '公的Twitterアカウント');
+INSERT INTO user_cat (id, p_id, cat_name) VALUES (12, 10, 'Twitterハッシュタグ');
+
+
+CREATE TABLE users ( id SERIAL PRIMARY KEY,
+  cat_id INT REFERENCES user_cat(id),
+  name VARCHAR NOT NULL,
+  contact VARCHAR NOT NULL,
+  password VARCHAR(128) );
+
+CREATE TABLE loc_cat ( id INT PRIMARY KEY,
+  p_id INT REFERENCES user_cat(id),
+  cat_name VARCHAR NOT NULL);
+
+INSERT INTO loc_cat (id, cat_name) VALUES (1, 'ユーザ登録位置情報');
+INSERT INTO loc_cat (id, cat_name) VALUES (2, '国土交通省位置参照情報');
+
+CREATE TABLE locations (id SERIAL PRIMARY KEY,
+  cat_id INT REFERENCES loc_cat(id),
+  name VARCHAR NOT NULL,
+  addr VARCHAR,
+  lat VARCHAR,
+  lng VARCHAR,
+  e_dist VARCHAR,
+  j_dist VARCHAR);
+
+CREATE TABLE incident_cat (id INT PRIMARY KEY,
+  p_id INT REFERENCES incident_cat(id),
+  cat_name VARCHAR NOT NULL );
+
+INSERT INTO incident_cat (id, cat_name) VALUES (0, '声かけ');
+INSERT INTO incident_cat (id, p_id, cat_name) VALUES (1, 0, '声かけ（徒歩）');
+INSERT INTO incident_cat (id, p_id, cat_name) VALUES (2, 0, '声かけ（自転車から）');
+INSERT INTO incident_cat (id, p_id, cat_name) VALUES (3, 0, '声かけ（自動車から）');
+INSERT INTO incident_cat (id, cat_name) VALUES (10, 'ちかん');
+INSERT INTO incident_cat (id, cat_name) VALUES (20, '暴力・暴言');
+
+CREATE TABLE indicents (id SERIAL PRIMARY KEY,
+  cat_id INT REFERENCES incident_cat(id),
+  user_id INT REFERENCES users(id),
+  loc_id INT REFERENCES locations(id),
+  content TEXT NOT NULL,
+  date VARCHAR,
+  time VARCHAR,
+  registered TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+

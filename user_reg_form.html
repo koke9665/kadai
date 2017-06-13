@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+不審者情報共有Webアプリケーション::ユーザ登録
+</title>
+
+<style type="text/css">
+<!--
+dl#sample1 dl,dt,dd {
+	margin: 0;
+	padding: 0;
+}
+
+dl#sample1 dl {
+	background: #e7e7e7;
+	border-top: none;
+	width: 600px;
+}
+
+dl#sample1 dt,dd {
+	padding: 3px;
+}
+
+dl#sample1 dt {
+	clear: left;
+	float: left;
+	width: 200px;
+}
+
+dl#sample1 dd {
+	background: #f0f0f0;
+	margin-left: 200px;
+}
+-->
+</style>
+<!-- CDNからダウンロード(https://developers.google.com/speed/libraries/#jquery) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- htmlファイルのあるフォルダのjsという名前のフォルダから読み込み -->
+<script src="js/user_chk.js"></script>		<!-- ユーザ登録機能のチェック用スクリプト -->
+<script src="js/form_submit.js" ></script>	<!-- <form>タグによるsubmitを行うスクリプト -->
+
+</head>
+<body>
+
+<h1>不審者情報共有Webアプリケーションへのユーザ登録</h1>
+<hr />
+<form action="user_reg.php" method="post" class="checkdata">
+<input type="hidden" name="method" value="doRegist">
+<dl id="sample1">
+<dt>ユーザカテゴリ：</dt>
+<dd>
+ <select name="cat_id" size=1> <!-- カテゴリ情報は予めテーブルに登録しておくことを想定→今後WebAPI化 -->
+ <option value="1" selected>自治体担当者</option>
+ <option value="2">保護者</option>
+ <option value="3">見守り担当者</option>
+ <option value="4">学校担当者</option>
+ <option value="11">公的Twitterアカウント</option>
+ <option value="12">Twitterハッシュタグ</option>
+ </select>
+</dd>
+<dt>ユーザ名：</dt>
+<dd><input type="text" name="name" size="30" class="cNN"></dd><!-- classにname_checkを加えるのはuser_name_check.phpを作成してから" -->
+<dt>連絡先：</dt>
+<dd><input type="text" name="contact" size="60" class="cNN" placeholder="e-mailアドレス，@Twitterアカウント，#ハッシュタグなど"></dd>
+<dt>パスワード：</dt>
+<dd><input type="password" name="password" size="20">（Twitter関連では不要）</dd>
+<dd><input type="submit" name="submit_btn" id="submit_btn" value="送信"> <input type="reset" value="クリア"></dd>
+</dl>
+</form>
+
+<div id="result"></div> <!-- JavaScriptによる各種処理結果を表示-->
+<div id="submit_result"></div> <!-- JavaScriptによるSubmit結果を表示 -->
+
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>不審者情報一覧</title>
+<style>
+table#tslist{background-color:#AAA;}
+table#tslist td{background-color:#FFF;}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$("#key").keyup(function(){
+		//リスト表示用の不審者情報(incident_info）を作成するPHPも考えられるが，今回は詳細表示用と供用する
+		var url = "http://www.shonan.bunkyo.ac.jp/~b6p31099/SD7/incident_info_json.php?id=" + $("#key").val();
+		$.ajax({url:url, dataType:"json", cache:false, success:function(j){
+			$("#main").html("");
+			$("<table border=1>").attr("id", "list").appendTo("#main");
+			$.each(j["incident_info_list"], function(i){
+				$("<tr><td>" + this["id"] + "</td><td>" + this["cat_id"] + "</td><td>" + this["content"] + "</td><td>" + this["addr"] + "</td><td>" + this["lat"] + "/" + this["lng"] + "</td></tr>").appendTo("#list");
+			});
+		}});
+	});
+});
+</script>
+</head>
+
+<body>
+不審者情報idを入力（何か入力して全て消すと一覧）：<input type="text" id="key">
+<div id="main"></div>
+</body>
+
+</html>

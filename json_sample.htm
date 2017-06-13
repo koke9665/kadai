@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>jsonデータの確認</title>
+<script>
+window.onload = function(){
+	var btn = document.getElementById("btn");
+	var tag = document.getElementById("out");
+	btn.onclick = function(){
+		var uri = document.getElementById("u").value
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", uri, true);
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200)
+				out.value = JSON.stringify(JSON.parse(xhr.responseText));
+		}
+		xhr.send(null);
+	}
+}
+</script>
+</haed>
+<body>
+URL<input type="text" id="u" value="http://www.shonan.bunkyo.ac.jp/~b6p31099/SD7/incident_info_json.php?q=声かけ" style="width:600px;">
+<input type="button" id="btn" value="値チェック"><br>
+<textarea cols="200" rows="30" id="out"></textarea>
+</body>
+</html>

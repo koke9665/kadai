@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+不審者情報共有Webアプリケーション::位置情報登録
+</title>
+
+<style type="text/css">
+<!--
+dl#sample1 dl,dt,dd {
+	margin: 0;
+	padding: 0;
+}
+
+dl#sample1 dl {
+	background: #e7e7e7;
+	border-top: none;
+	width: 600px;
+}
+
+dl#sample1 dt,dd {
+	padding: 3px;
+}
+
+dl#sample1 dt {
+	clear: left;
+	float: left;
+	width: 200px;
+}
+
+dl#sample1 dd {
+	background: #f0f0f0;
+	margin-left: 200px;
+}
+-->
+</style>
+<!-- CDNからダウンロード(https://developers.google.com/speed/libraries/#jquery) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- htmlファイルのあるフォルダのjsという名前のフォルダから読み込み -->
+<script src="js/location_chk.js"></script>	<!-- 位置情報登録機能のチェック用スクリプト -->
+<script src="js/form_submit.js" ></script>	<!-- <form>タグによるsubmitを行うスクリプト -->
+
+</head>
+<body>
+
+<h1>不審者情報共有Webアプリケーションへの位置情報登録</h1>
+<hr />
+<form action="location_reg.php" method="post" class="checkdata">
+<input type="hidden" name="method" value="doRegist">
+<dl id="sample1">
+<dt>カテゴリ：</dt>
+<dd>
+ <select name="cat_id" size=1> <!-- カテゴリ情報は予めテーブルに登録しておくことを想定→今後WebAPI化 -->
+ <option value="1" selected>ユーザ登録位置情報</option>
+ <option value="2">国土交通省位置参照情報</option>
+ </select>
+</dd>
+<dt>位置の名まえ：</dt>
+<dd><input type="text" name="name" size="30" class="cNN"></dd><!-- classにname_checkを加えるのはuser_name_check.phpを作成してから" -->
+<dt>住所：</dt>
+<dd><input type="text" name="addr" size="60" class="cNN"></dd>
+<dt>位置の緯度：</dt>
+<dd><input type="text" name="lat" size="20" class="cNum"></dd>
+<dt>位置の経度：</dt>
+<dd><input type="text" name="lng" size="20" class="cNum"></dd>
+<dt>小学校区：</dt>
+<dd><input type="text" name="e_dist" size="50"></dd>
+<dt>中学校区：</dt>
+<dd><input type="text" name="j_dist" size="50"></dd>
+<dd><input type="submit" name="submit_btn" id="submit_btn" value="送信"> <input type="reset" value="クリア"></dd>
+</dl>
+</form>
+
+<div id="result"></div> <!-- JavaScriptによる各種処理結果を表示-->
+<div id="submit_result"></div> <!-- JavaScriptによるSubmit結果を表示 -->
+
+
+</body>
+</html>
